@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  # database:
+  #   image: postgres:latest
+  #   env_file:
+  #     - .env
+  #   ports:
+  #     - "5432:5432"
+  #   volumes:
+  #     - "data:/var/lib/postgresql/data"
+  # grid:
+  #   build:
+  #     context: .
+  #     dockerfile: ./Grid.Dockerfile
+  #   command: mono ./OpenSim.exe
+  #   ports:
+  #     - "8002:8002/udp"
+  #     - "8002:8002/tcp"
+  #   volumes:
+  #     - .:/meta-region
+  #   depends_on:
+  #     - database
+  region:
+    build:
+      context: .
+      dockerfile: ./Region.Dockerfile
+    command: mono ./OpenSim.exe
+    ports:
+      - "9000:9000/udp"
+      - "9000:9000/tcp"
+    volumes:
+      - .:/meta
+    # depends_on:
+    #   - database
+      
+volumes:
+  #data:
